@@ -1,7 +1,7 @@
 pipeline {
   agent any
   tools {
-        maven "Maven 3.8.6"
+        maven 'Maven 3.8.6 ' 
    }
 
   stages {
@@ -20,6 +20,17 @@ pipeline {
                 junit 'target/surefire-reports/*.xml'
               }
             }
+        }
+        
+
+      stage('Sonarqube Analysis - SAST') {
+            steps {
+                  withSonarQubeEnv('SonarQube') {
+           sh "mvn sonar:sonar \
+                              -Dsonar.projectKey=maven-jenkins-pipeline \
+                        -Dsonar.host.url=http://34.173.74.192:9000" 
+                }
+              }
         }
     }
 }
