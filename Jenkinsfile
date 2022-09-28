@@ -30,14 +30,12 @@ pipeline {
                               -Dsonar.projectKey=maven-jenkins-pipeline \
                         -Dsonar.host.url=http://34.173.74.192:9000" 
                 }
+           timeout(time: 2, unit: 'MINUTES') {
+                      script {
+                        waitForQualityGate abortPipeline: true
+                    }
+                }
               }
         }
-         stage("Quality Gate") {
-            steps {
-              timeout(time: 10, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true, credentialsId: 'sonarqube-quality-gates'
-              }
-         }
-    }
-  }
+     }
 }
