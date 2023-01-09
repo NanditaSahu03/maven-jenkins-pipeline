@@ -11,7 +11,7 @@ pipeline {
               archive 'target/*.jar' 
             }  
        }
-      stage('Test Maven - JUnit') {
+      stage('Test - JUnit') {
             steps {
               sh "mvn test"
             }
